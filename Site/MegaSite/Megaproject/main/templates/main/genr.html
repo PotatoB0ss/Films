@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+
+
+</br></br></br>
+
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+      {% for ele in pag %}
+    <div class="col-sm">
+        <h2 align="left">&nbsp&nbsp&nbsp&nbsp&nbsp<a href="{% url 'film_watch' ele.pk %}">{{ele.title}}</a></h2>
+        </br>
+        <img src="{{ ele.img.url }}" height="400px" width="350px" align="">
+        </br></br>
+        <h4 align="left">&nbsp&nbsp&nbsp&nbsp&nbspРейтинг: .../5</h4>
+        <h4 align="left">&nbsp&nbsp&nbsp&nbsp&nbspЖанр:  {% for elem in ele.genre.all %} {{elem}} | {% endfor %}</h4>
+        <h4 align="left">&nbsp&nbsp&nbsp&nbsp&nbspГод выхода:  {{ele.year}}</h4>
+
+    </div>
+      {% endfor %}
+
+
+
+
+  </div>
+</div>
+{% endblock content %}

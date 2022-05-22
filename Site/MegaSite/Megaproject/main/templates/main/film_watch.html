@@ -1,0 +1,66 @@
+{% extends 'main/base.html' %}
+{% load embed_video_tags %}
+
+{% block content %}
+
+
+
+<h1>Название фильма: {{ml.title}}</h1>
+<h5>Дата добавления на сайт: {{ml.published}}</h5>
+
+<img src="{{ ml.img.url }}" height="500px" width="400px" align="">
+
+</br></br>
+
+<h4>Жанр: {% for elem in ml.genre.all %} {{elem}} | {% endfor %}</h4></h4>
+<h4>Год выпуска: {{ml.year}}</h4>
+<h4>Описание: {{ml.content}}</h4>
+</br></br>
+<p align="center">{% video ml.video 'medium' %}</p>
+
+</br>
+
+<h1>Комментарии</h1>
+
+<hr>
+{% if user.is_authenticated %}
+
+{% for ele in post_comments %}
+
+<h3>Автор:{{ele.user}}</h3>
+<h5>Дата: {{ele.date}}</h5>
+
+<h4>Оценка: {{ele.rating}}</h4>
+<h4>Комментарий: {{ele.content}}</h4>
+
+<hr>
+
+
+
+
+<hr>
+{% endfor %}
+
+
+<form method="POST" action="">
+    {% csrf_token %}
+    <h2>Комментарий:</h2>
+    {{form.content}}
+    <h2>Оценка фильма от 1 до 5 (не обязательный пункт):</h2>
+    {{form.rating}}
+    <div class="g-recaptcha" data-sitekey="6LcIoPgfAAAAAOAq9N8JgrbWGivLbVlScbR-MEkw"></div>
+
+
+    <button class=" " type="submit">Comment</button>
+</form>
+
+ <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+{% else %}
+<h2>Чтобы оставить коментарий сперва зарегистрируйтесь!</h2>
+
+{% endif %}
+
+
+
+{% endblock content %}
